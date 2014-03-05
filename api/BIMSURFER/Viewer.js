@@ -389,8 +389,9 @@ BIMSURFER.Viewer = BIMSURFER.Class({
 		_this.SYSTEM.events.trigger('progressStarted', ['Loading Geometry']);
 		_this.SYSTEM.events.trigger('progressChanged', [0]);
 		_this.SYSTEM.events.trigger('progressMessageChanged', "Loading");
-
-		this.bimServerApi.getSerializerByPluginClassName("org.bimserver.serializers.binarygeometry.BinaryGeometrySerializerPlugin", function(serializer){
+		_this.bimServerApi.call("PluginInterface", "getSerializerByPluginClassName", {
+			pluginClassName: "org.bimserver.serializers.binarygeometry.BinaryGeometrySerializerPlugin"
+		}, function(serializer) {
 			_this.bimServerApi.call("Bimsie1ServiceInterface", "downloadByTypes", {
 				roids : options.roids,
 				classNames : options.types,
